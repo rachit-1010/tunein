@@ -1,23 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import LeftSidePanel from './components/LeftSidePanel';
+import MusicPlayer from './components/MusicPlayer';
+import TopBar from './components/TopBar';
+import MainPanel from './MainPanel';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app bg-black">
+      <LeftSidePanel />
+      <MusicPlayer />
+      <TopBar />
+      <MainPanel />
+
     </div>
   );
 }
