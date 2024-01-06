@@ -13,38 +13,6 @@
 	--black: #000;
 }
 
-/* .text-color-primary {
-	color: var(--text-color-primary);
-}
-
-.text-color-secondary {
-	color: var(--text-color-secondary);
-}
-
-.text-color-highlight {
-	color: var(--text-color-highlight);
-}
-
-.bg-color-primary {
-	background-color: var(--bg-color-primary);
-}
-
-.bg-color-secondary {
-	background-color: var(--bg-color-secondary);
-}
-
-.bg-color-highlight {
-	background-color: var(--bg-color-highlight);
-}
-
-.topbar-bg {
-	background-color: var(--topbar-bg);
-}
-
-.black {
-	color: var(--black);
-} */
-
 .app::before {
 	content: "";
 	position: fixed;
@@ -130,10 +98,6 @@
 .addPlBtn:hover .dropdown-content {
 	display: block;
 }
-
-/* .blck-bg {
-	background-color: #121212;
-} */
 
 .topbar-bg {
 	background: linear-gradient(180deg, var(--topbar-bg) 0%, var(--bg-color-primary) 100%);
