@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { faCirclePause } from "@fortawesome/free-regular-svg-icons";
 import { faForwardStep } from "@fortawesome/free-solid-svg-icons";
 import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,7 +23,7 @@ export default function MusicPlayer() {
 				</div>
 				{/* Progress bar */}
 				<div>
-					<div className="bg-gray-800">
+					<div style={{backgroundColor:"#4d4c4c"}}>
 						<div className="h-1 w-1/4 bg-white"></div>
 					</div>
 					<div className="flex justify-between">
