@@ -3,7 +3,7 @@ import './App.css';
 import LeftSidePanel from './components/LeftSidePanel';
 import MusicPlayer from './components/MusicPlayer';
 import TopBar from './components/TopBar';
-import MainPanel from './MainPanel';
+import MainPanel from './components/MainPanel';
 
 function App() {
   return (

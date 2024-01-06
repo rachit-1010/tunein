@@ -4,6 +4,7 @@ import { faSquarePlus } from '@fortawesome/free-regular-svg-icons'
 import { faMusic } from '@fortawesome/free-solid-svg-icons'
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import PlaylistList from './PlaylistList';
 
 
@@ -16,7 +17,7 @@ export default function LeftSidePanel() {
 				{/* Add more songs button */}
 				<div className='LeftPanelBlockItem'>
 					<div>
-						<FontAwesomeIcon icon={faSquarePlus} size="2x" color='#cbd5e1'/>
+						<FontAwesomeIcon icon={faSquarePlus} size="2x" />
 					</div>
 					<div className='text-xl pb-1 '>
 						Add More Songs
@@ -24,22 +25,30 @@ export default function LeftSidePanel() {
 				</div>
 				{/* Home button */}
 				<div className='LeftPanelBlockItem'>
-					<div>
-						<FontAwesomeIcon icon={faHouse} size="2x" color='#cbd5e1'/>
+					<div className='leading-none'>
+						<FontAwesomeIcon icon={faHouse} size="2x" className='scale-90 m-0 p-0'/>
 					</div>
 					<div className='text-xl pb-1'>
 						Home
 					</div>
 				</div>
+				<div className='LeftPanelBlockItem'>
+					<div>
+						<FontAwesomeIcon icon={faShareNodes} size="2x" />
+					</div>
+					<div className='text-xl pb-1'>
+						Recommend
+					</div>
+				</div>
 			</div>
 			{/* Second block in LeftSidePanel */}
-			<div className='LeftPanelBlock text-slate-400 overflow-y-scroll ScrollCSS'> 
+			<div className='LeftPanelBlock overflow-y-scroll ScrollCSS'> 
 				{/* Playlist heading with the icon */}
 				<div className='flex items-center gap-6'> 
 					<div>
-						<FontAwesomeIcon icon={faMusic} size="2x" color='#cbd5e1'/>
+						<FontAwesomeIcon icon={faMusic} size="2x" />
 					</div>
-					<div className='text-3xl pb-1 text-slate-400'>
+					<div className='text-3xl pb-1 text-color-secondary'>
 						Playlists
 					</div>
 				</div>
@@ -47,13 +56,13 @@ export default function LeftSidePanel() {
 					<PlaylistList />
 				</div>
 			</div>
-			<div className='LeftPanelBlock'>
+			<div className='LeftPanelBlock mb-0'>
 				{/* Queues button */}
-				<div className='LeftPanelBlockItem'>
+				<div className='LeftPanelBlockItem mb-0'>
 					<div>
-						<FontAwesomeIcon icon={faBars} size="2x" color='#cbd5e1'/>
+						<FontAwesomeIcon icon={faBars} size="2x" />
 					</div>
-					<div className='text-xl pb-1 '>
+					<div className='text-xl pb-1'>
 						Queue
 					</div>
 				</div>

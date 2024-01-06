@@ -18,8 +18,8 @@ export default function PlaylistList() {
 
 function PlaylistItem({name, numSongs}) {
 	return (
-		<div className="cursor-pointer hover:bg-gray-200 rounded-md">
-			<div className="text-xl text-left ps-4">
+		<div className="cursor-pointer hover:bg-color-secondary rounded-md">
+			<div className="text-xl text-left ps-4 text-color-primary">
 				{name}
 			</div>
 			<div className="text-sm text-left ps-8 pb-2 leading-none">
