@@ -5,7 +5,8 @@ import { useState } from "react";
 export default function MainPanel() {
 
 	return (
-		<div className="MainPanel absolute top-24 bottom-24 left-64 right-0 text-color-secondary bg-color-primary py-4  mt-2 ms-2 flex flex-col rounded-b-lg">
+		<div className="MainPanel fixed top-24 bottom-24 left-64 right-0 text-color-secondary bg-color-primary py-4  mt-2 ms-2 flex flex-col rounded-b-lg">
+		{/* <div className="MainPanel absolute top-24 bottom-24 left-0 right-0 text-color-secondary bg-color-primary py-4  mt-2 ms-2 flex flex-col rounded-b-lg"> */}
 			<SongListHeader />
 			<div className="overflow-y-scroll ScrollCSS w-full">
 			<SongItem id={1} name={"Khaabon ke Parinday"} album={"Zindagi Na Milegi Dobara"} duration={"4:28"} selected={true}/>
