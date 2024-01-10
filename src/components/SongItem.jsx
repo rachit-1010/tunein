@@ -4,13 +4,18 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart} from "@fortawesome/free-regular-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-export default function SongItem({ id, name, album, duration, selected}) {
+export default function SongItem({ id, name, album, duration, selected, setShowModal, setModalContent}) {
 	
 	const [isFocused, setIsFocused] = useState(false);
 	const [isLiked, setIsLiked] = useState(false);
 
 	function toggleLike() {
 		setIsLiked(!isLiked);
+	}
+
+	function handleModal() {
+		setModalContent("Added to queue");
+		setShowModal(true);
 	}
 
 	return (
@@ -30,7 +35,7 @@ export default function SongItem({ id, name, album, duration, selected}) {
 			<div className="text-left flex gap-8 items-center w-1/6">
 				<div className="flex gap-3 items-center">
 					<div className="relative inline-block hoverTextStyle">
-						<button className="hover:bg-slate-700 p-1 px-2 rounded-full text-xs ">+<FontAwesomeIcon icon={faBars} /></button>
+						<button className="hover:bg-slate-700 p-1 px-2 rounded-full text-xs " onClick={handleModal}>+<FontAwesomeIcon icon={faBars} /></button>
 					</div>
 
 					<div className="relative inline-block addPlBtn">

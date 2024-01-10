@@ -8,12 +8,17 @@ import ModalCmp from './components/ModalCmp';
 import { useState } from 'react';
 
 function App() {
+  
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+
   return (
     <div className="app bg-black">
       <LeftSidePanel />
       <MusicPlayer />
       <TopBar />
-      <MainPanel />
+      <MainPanel setModalContent={setModalContent} setShowModal={setShowModal} />
+      <ModalCmp content={modalContent} showModal={showModal} setShowModal={setShowModal} />
 
     </div>
   );
