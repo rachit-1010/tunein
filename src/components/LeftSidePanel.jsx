@@ -11,7 +11,7 @@ import PlaylistList from './PlaylistList';
 export default function LeftSidePanel() {
 	return (
 		// LeftSidePanel
-		<div className="bg-black fixed left-0 top-0 w-64 bottom-24 flex flex-col">
+		<div className="bg-black fixed left-0 top-0 w-64 bottom-24 hidden lg:flex flex-col">
 			{/* First block in LeftSidePanel */}
 			<div className='LeftPanelBlock'>
 				{/* Add more songs button */}

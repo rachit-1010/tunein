@@ -4,8 +4,7 @@ import SongItem from "./SongItem";
 export default function MainPanel({ setModalContent, setShowModal }) {
 
 	return (
-		<div className="MainPanel fixed top-24 bottom-24 left-64 right-0 text-color-secondary bg-color-primary py-4  mt-2 ms-2 flex flex-col rounded-b-lg">
-		{/* <div className="MainPanel absolute top-24 bottom-24 left-0 right-0 text-color-secondary bg-color-primary py-4  mt-2 ms-2 flex flex-col rounded-b-lg"> */}
+		<div className="MainPanel absolute top-32 lg:top-24 bottom-24 left-0 lg:left-64 right-0 text-color-secondary bg-color-primary py-4 lg:mt-2 lg:ms-2 flex flex-col lg:rounded-b-lg">
 			<SongListHeader />
 			<div className="overflow-y-scroll ScrollCSS w-full">
 			<SongItem id={1} name={"Khaabon ke Parinday"} album={"Zindagi Na Milegi Dobara"} duration={"4:28"} selected={true} setShowModal={setShowModal} setModalContent={setModalContent}/>
@@ -30,12 +29,12 @@ export default function MainPanel({ setModalContent, setShowModal }) {
 
 function SongListHeader() {
 	return (
-		<div className="flex space-x-4 border-b-2 border-slate-700 px-4 py-1 me-2">
-			<div className="w-8 text-right">#</div>
-			<div className="w-1/3 ps-2">Title</div>
-			<div className="w-1/5">Album</div>
-			<div className="w-20 text-center">Duration</div>
-			<div className="w-4 flex-grow"></div>
+		<div className="flex space-x-1 lg:space-x-4 border-b-2 border-slate-700 lg:px-4 py-1 me-2">
+			<div className="w-8 text-right hidden lg:block">#</div>
+			<div className="w-3/5 lg:w-1/3 ps-1 lg:ps-2">Title</div>
+			<div className="w-1/5 hidden lg:block">Album</div>
+			<div className="w-20 text-center hidden lg:block">Duration</div>
+			<div className="w-4 lg:flex-grow"></div>
 			<div className="text-left w-1/6">Options</div>
 		</div>
 	)
