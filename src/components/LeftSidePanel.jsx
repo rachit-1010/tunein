@@ -1,10 +1,11 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquarePlus } from '@fortawesome/free-regular-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { faMusic } from '@fortawesome/free-solid-svg-icons'
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
+import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import PlaylistList from './PlaylistList';
 
 
@@ -18,27 +19,27 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 				{/* Add more songs button */}
 				<div className='LeftPanelBlockItem'>
 					<div>
-						<FontAwesomeIcon icon={faSquarePlus} size="2x" />
+						<FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />
 					</div>
 					<div className='text-xl pb-1 '>
-						Add More Songs
+						Search
 					</div>
 				</div>
 				{/* Home button */}
 				<div className='LeftPanelBlockItem'>
 					<div className='leading-none'>
-						<FontAwesomeIcon icon={faHouse} size="2x" className='scale-90 m-0 p-0'/>
+						<FontAwesomeIcon icon={faCloudArrowDown} size="2x" className='scale-90 m-0 p-0'/>
 					</div>
 					<div className='text-xl pb-1'>
-						Home
+						Saved Songs
 					</div>
 				</div>
 				<div className='LeftPanelBlockItem'>
 					<div>
-						<FontAwesomeIcon icon={faShareNodes} size="2x" />
+						<FontAwesomeIcon icon={faVideoSlash} size="2x" />
 					</div>
 					<div className='text-xl pb-1'>
-						Recommend
+						Hide Video
 					</div>
 				</div>
 			</div>
