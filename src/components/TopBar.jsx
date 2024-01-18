@@ -5,11 +5,12 @@ import { faCirclePause } from "@fortawesome/free-regular-svg-icons";
 import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-export default function TopBar() {
+export default function TopBar({ isMainView, setIsMainView }) {
 	return (
+		isMainView &&
 		<>
 			{/* hamburger menu button for mobile view */}
-			<div className="lg:hidden fixed top-20 left-5 z-10 ">
+			<div className="lg:hidden fixed top-20 left-5 z-10" onClick={()=>setIsMainView(false)}>
 				<FontAwesomeIcon icon={faBars} size="2x" style={{ color: 'var(--text-color-primary)'}} className="cursor-pointer hover:scale-110 duration-200"/>
 			</div>
 			<div className="top-bar fixed top-0 left-0 lg:left-64 right-0 h-32 lg:h-24 topbar-bg flex flex-col justify-end lg:flex-row gap-2 lg:gap-6 text-color-primary items-end pb-4 ps-16 lg:m-2 rounded-t-lg">

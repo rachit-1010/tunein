@@ -1,10 +1,11 @@
 import React from "react";
 import SongItem from "./SongItem";
 
-export default function MainPanel({ setModalContent, setShowModal }) {
+export default function MainPanel({ setModalContent, setShowModal, isMainView}) {
 
 	return (
-		<div className="MainPanel absolute top-32 lg:top-24 bottom-24 left-0 lg:left-64 right-0 text-color-secondary bg-color-primary py-4 lg:mt-2 lg:ms-2 flex flex-col lg:rounded-b-lg">
+	isMainView &&
+		<div className="MainPanel fixed top-32 lg:top-24 bottom-24 left-0 lg:left-64 right-0 text-color-secondary bg-color-primary py-4 lg:mt-2 lg:ms-2 flex flex-col lg:rounded-b-lg">
 			<SongListHeader />
 			<div className="overflow-y-scroll ScrollCSS w-full">
 			<SongItem id={1} name={"Khaabon ke Parinday"} album={"Zindagi Na Milegi Dobara"} duration={"4:28"} selected={true} setShowModal={setShowModal} setModalContent={setModalContent}/>
@@ -24,6 +25,7 @@ export default function MainPanel({ setModalContent, setShowModal }) {
 			<SongItem id={15} name={"The Nights"} album={"Avicii"} duration={"6:27"} setShowModal={setShowModal} setModalContent={setModalContent}/>
 			</div>
 		</div>
+		
 	)
 }
 

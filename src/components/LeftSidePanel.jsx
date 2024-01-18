@@ -8,10 +8,11 @@ import { faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import PlaylistList from './PlaylistList';
 
 
-export default function LeftSidePanel() {
+export default function LeftSidePanel({isMainView, setIsMainView}) {
+
 	return (
 		// LeftSidePanel
-		<div className="bg-black fixed left-0 top-0 w-64 bottom-24 hidden lg:flex flex-col">
+		<div className={`bg-black fixed left-0 top-0 bottom-24 w-screen lg:w-64 ${isMainView ? 'hidden' : 'flex'} lg:flex flex-col`}>
 			{/* First block in LeftSidePanel */}
 			<div className='LeftPanelBlock'>
 				{/* Add more songs button */}

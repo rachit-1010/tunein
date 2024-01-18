@@ -11,13 +11,14 @@ function App() {
   
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [isMainView, setIsMainView] = useState(true);
 
   return (
     <div className="app bg-black">
-      <LeftSidePanel />
+      <LeftSidePanel isMainView={isMainView} setIsMainView={setIsMainView}/>
       <MusicPlayer />
-      <TopBar />
-      <MainPanel setModalContent={setModalContent} setShowModal={setShowModal} />
+      <TopBar setIsMainView={setIsMainView} isMainView={isMainView} />
+      <MainPanel setModalContent={setModalContent} setShowModal={setShowModal} isMainView={isMainView} />
       <ModalCmp content={modalContent} showModal={showModal} setShowModal={setShowModal} />
 
     </div>
