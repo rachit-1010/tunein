@@ -103,3 +103,7 @@
 .topbar-bg {
 	background: linear-gradient(180deg, var(--topbar-bg) 0%, var(--bg-color-primary) 100%);
 }
+
+.LoginBg{
+	background: linear-gradient(180deg, var(--topbar-bg) 0%, var(--bg-color-primary) 100%);
+}

@@ -5,6 +5,7 @@ import MusicPlayer from './components/MusicPlayer';
 import TopBar from './components/TopBar';
 import MainPanel from './components/MainPanel';
 import ModalCmp from './components/ModalCmp';
+import LoginPage from './components/LoginPage';
 import { useState } from 'react';
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
 
   return (
     <div className="app bg-black">
+
+      {/* <LoginPage /> */}
+
       <LeftSidePanel isMainView={isMainView} setIsMainView={setIsMainView}/>
       <MusicPlayer />
       <TopBar setIsMainView={setIsMainView} isMainView={isMainView} />

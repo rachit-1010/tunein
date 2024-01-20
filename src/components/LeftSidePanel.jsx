@@ -19,24 +19,24 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 				{/* Add more songs button */}
 				<div className='LeftPanelBlockItem'>
 					<div>
-						<FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />
+						<FontAwesomeIcon icon={faMagnifyingGlass} size="x" />
 					</div>
-					<div className='text-xl pb-1 '>
+					<div className='text-xl pb-1 ps-1'>
 						Search
 					</div>
 				</div>
 				{/* Home button */}
 				<div className='LeftPanelBlockItem'>
 					<div className='leading-none'>
-						<FontAwesomeIcon icon={faCloudArrowDown} size="2x" className='scale-90 m-0 p-0'/>
+						<FontAwesomeIcon icon={faCloudArrowDown} size="x" className='scale-90 m-0 p-0'/>
 					</div>
 					<div className='text-xl pb-1'>
-						Saved Songs
+						All Saved Songs
 					</div>
 				</div>
 				<div className='LeftPanelBlockItem'>
 					<div>
-						<FontAwesomeIcon icon={faVideoSlash} size="2x" />
+						<FontAwesomeIcon icon={faVideoSlash} size="x" />
 					</div>
 					<div className='text-xl pb-1'>
 						Hide Video
