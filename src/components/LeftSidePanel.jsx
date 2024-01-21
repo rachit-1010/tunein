@@ -19,7 +19,7 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 				{/* Add more songs button */}
 				<div className='LeftPanelBlockItem'>
 					<div>
-						<FontAwesomeIcon icon={faMagnifyingGlass} size="x" />
+						<FontAwesomeIcon icon={faMagnifyingGlass} />
 					</div>
 					<div className='text-xl pb-1 ps-1'>
 						Search
@@ -28,7 +28,7 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 				{/* Home button */}
 				<div className='LeftPanelBlockItem'>
 					<div className='leading-none'>
-						<FontAwesomeIcon icon={faCloudArrowDown} size="x" className='scale-90 m-0 p-0'/>
+						<FontAwesomeIcon icon={faCloudArrowDown} className='scale-90 m-0 p-0'/>
 					</div>
 					<div className='text-xl pb-1'>
 						All Saved Songs
@@ -36,7 +36,7 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 				</div>
 				<div className='LeftPanelBlockItem'>
 					<div>
-						<FontAwesomeIcon icon={faVideoSlash} size="x" />
+						<FontAwesomeIcon icon={faVideoSlash} />
 					</div>
 					<div className='text-xl pb-1'>
 						Hide Video
