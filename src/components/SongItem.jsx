@@ -53,7 +53,7 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 						<button className="lg:hover:bg-slate-700 p-1 px-2 rounded-full text-xs " 
 							onClick={() => {
 								handleModal();
-								dispatch({type:'addToQueue', payload:id-1});
+								dispatch({type:'addToQueue', payload:songIndex});
 							}}
 						>
 							+<FontAwesomeIcon icon={faBars} />
