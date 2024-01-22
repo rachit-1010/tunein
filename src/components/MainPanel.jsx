@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SongItem from "./SongItem";
 
 export default function MainPanel({ state, dispatch}) {
@@ -8,11 +8,25 @@ export default function MainPanel({ state, dispatch}) {
 		<div className="MainPanel fixed top-32 lg:top-24 bottom-24 left-0 lg:left-64 right-0 text-color-secondary bg-color-primary py-4 lg:mt-2 lg:ms-2 flex flex-col lg:rounded-b-lg">
 			<SongListHeader />
 			<div className="overflow-y-scroll ScrollCSS w-full">
-				{state.allSongs.map((song, index) => {
-					return (
-						<SongItem key={index + 1} id={index + 1} name={song.title} album={song.album} duration={song.duration} selected={state.currentSongIndex===index ? true : false} state={state} dispatch={dispatch}/>
-					)
-				})}
+				{
+					state.currentSongList.map((currentIndex, index) => {
+						const song = state.allSongs[currentIndex];
+
+						return (
+							<SongItem
+								key={index+1}
+								id={index+1}
+								songIndex={currentIndex}
+								name={song.title}
+								album={song.album}
+								duration={song.duration}
+								selected={state.currentSongIndex === currentIndex}
+								state={state}
+								dispatch={dispatch}
+							/>
+						)
+					})
+				}
 			</div>
 		</div>
 		

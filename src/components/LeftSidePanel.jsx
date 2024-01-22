@@ -7,6 +7,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import PlaylistList from './PlaylistList';
+import { Link } from 'react-router-dom';
 
 
 export default function LeftSidePanel({state, dispatch}) {
@@ -21,6 +22,7 @@ export default function LeftSidePanel({state, dispatch}) {
 			{/* First block in LeftSidePanel */}
 			<div className='LeftPanelBlock'>
 				{/* Add more songs button */}
+				<Link to="/search">
 				<div className='LeftPanelBlockItem' onClick={switchToMainView}>
 					<div>
 						<FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -29,7 +31,9 @@ export default function LeftSidePanel({state, dispatch}) {
 						Search
 					</div>
 				</div>
+				</Link>
 				{/* Home button */}
+				<Link to="/saved_songs">
 				<div className='LeftPanelBlockItem' onClick={switchToMainView}>
 					<div className='leading-none'>
 						<FontAwesomeIcon icon={faCloudArrowDown} className='scale-90 m-0 p-0'/>
@@ -38,6 +42,7 @@ export default function LeftSidePanel({state, dispatch}) {
 						All Saved Songs
 					</div>
 				</div>
+				</Link>
 				<div className='LeftPanelBlockItem' onClick={() => {
 					dispatch({type:"toggleShowVideo"})
 				}}>
@@ -61,11 +66,12 @@ export default function LeftSidePanel({state, dispatch}) {
 					</div>
 				</div>
 				<div className='py-4'>
-					<PlaylistList dispatch={dispatch} />
+					<PlaylistList state={state} dispatch={dispatch} />
 				</div>
 			</div>
 			<div className='LeftPanelBlock mb-0'>
 				{/* Queues button */}
+				<Link to='/queue'>
 				<div className='LeftPanelBlockItem mb-0' onClick={switchToMainView}>
 					<div>
 						<FontAwesomeIcon icon={faBars} size="2x" />
@@ -74,6 +80,7 @@ export default function LeftSidePanel({state, dispatch}) {
 						Queue
 					</div>
 				</div>
+				</Link>
 			</div>
 		</div>
 	)

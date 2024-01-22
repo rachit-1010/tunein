@@ -4,11 +4,17 @@ const initialState = {
 	showModal: false,
   	modalContent: "",
   	isMainView: true,
-	allSongs: [],
-	currentSongIndex: 0,
 	showVideo: false,
+	allSongs: [],
+	currentSongIndex: 0, //global index - based on the allSongs list
+	currentSection: "All Saved Songs", //to show at the TopBar
+	currentSongList: [], // to display in the mainpanel
+	currenPlayingSection:"All Saved Songs", // to decide the nextSong
+	queue: [],
+	playlistList: [],
 	YTPlayer: null,
 	YTPlayerState: null,
+	
 }
 
 const reducer = (state, action) => {
@@ -43,6 +49,10 @@ const reducer = (state, action) => {
 			}
 			return state
 		case "nextSong":
+			if (state.queue.length > 0) {
+				return {...state, currentSongIndex: state.queue[0], queue: state.queue.slice(1)}
+			}
+			// if there is nothing in the queue, then 
 			if (state.currentSongIndex < state.allSongs.length - 1) {
 				return {...state, currentSongIndex: state.currentSongIndex + 1}
 			} else {
@@ -56,6 +66,18 @@ const reducer = (state, action) => {
 			}
 		case "setYTPlayerState":
 			return {...state, YTPlayerState: action.payload}
+		case "setQueue":
+			return {...state, queue: action.payload}
+		case "addToQueue":
+			return {...state, queue: [...state.queue, action.payload]}
+		case "setCurrentSection":
+			return {...state, currentSection: action.payload}
+		case "setCurrentSongList":
+			return {...state, currentSongList: action.payload}
+		case "setPlaylistList":
+			return {...state, playlistList: action.payload}
+		case "setCurrentPlayingSection":
+			return {...state, currentPlayingSection: action.payload}
 		default:
 			return state
 	}
@@ -70,8 +92,31 @@ const useHooksLogic = () => {
 			.then(data => {
 				data = JSON.parse(data)
 				dispatch({type: "setAllSongs", payload: data})
+				// set currentSongList to [0,...,data.length-1]
+				let currentSongList = []
+				for (let i = 0; i < data.length; i++) {
+					currentSongList.push(i)
+				}
+				dispatch({type: "setCurrentSongList", payload: currentSongList})
+			})
+		
+		fetch("http://127.0.0.1:5000/getallplaylists")
+			.then(res => res.json())
+			.then(data => {
+				data = JSON.parse(data)
+				dispatch({type: "setPlaylistList", payload: data})
 			})
 	}, [])
+
+	useEffect(() => {
+		if (state.currentSection === "All Saved Songs") {
+			dispatch({type: "setCurrentSongList", payload: [...Array(state.allSongs.length).keys()]})
+		} else if (state.currentSection === "Queue") {
+			dispatch({type: "setCurrentSongList", payload: state.queue})
+		} else if (typeof state.currentSection === "number") {
+			dispatch({type: "setCurrentSongList", payload: state.playlistList[state.currentSection].songs})
+		}
+	}, [state.currentSection])
 
 	return [state, dispatch]
 }

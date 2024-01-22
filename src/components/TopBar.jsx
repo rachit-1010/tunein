@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { faCirclePause } from "@fortawesome/free-solid-svg-icons";
 import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
 
 export default function TopBar({ state, dispatch }) {
+
+	const { page } = useParams();
+
+	useEffect(() => {
+		if (page === 'queue') {
+			dispatch({type:'setCurrentSection', payload:'Queue'})
+		} else if (page === 'search') {
+			dispatch({type:'setCurrentSection', payload:'Search'})
+		} else if (page === 'saved_songs') {
+			dispatch({type:'setCurrentSection', payload:'All Saved Songs'})
+		} else if (state.playlistList[page]){
+			dispatch({type:'setCurrentSection', payload:state.playlistList[page].playlistName})
+		}
+
+	}, [page])
+
 	return (
 		state.isMainView &&
 		<>
@@ -17,11 +34,14 @@ export default function TopBar({ state, dispatch }) {
 				{/* Playlist name */}
 				<div className="max-w-80">
 					<div className="text-3xl lg:text-4xl font-bold whitespace-nowrap overflow-hidden text-ellipsis">
-						Slow Mornings slow slow
+						{/* Slow Mornings slow slow */}
+						{state.currentSection}
 					</div>
+					{!isNaN(page) && state.playlistList[page] &&
 					<div className="font-semibold text-sm lg:text-base leading-none text-right mr-4">
-						31 songs • 2 hr 15 min
+						{state.playlistList[page].numSongs} songs • {state.playlistList[page].totalDuration}
 					</div>
+					}
 				</div>
 				<div className="mr-6 lg:mr-0">
 					{/* play button */}
@@ -30,11 +50,11 @@ export default function TopBar({ state, dispatch }) {
 					{/* Shuffle button */}
 					<FontAwesomeIcon icon={faShuffle} size="3x" style={{ color: 'var(--text-color-highlight)'}} className="cursor-pointer hover:scale-110 duration-200 mx-3"/>
 				</div>
-				{/* <div className="self-end flex-grow text-right me-8 hidden lg:block">
-					<button className="text-color-primary p-4 border-2 whitespace-nowrap">
-						Show Video
+				<div className="self-end flex-grow text-right me-8 hidden lg:block">
+					<button className="text-red-300 px-4 py-2 border-red-600 border-2 whitespace-nowrap">
+						Logout
 					</button>
-				</div> */}
+				</div>
 
 
 			</div>

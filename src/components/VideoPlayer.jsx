@@ -53,8 +53,8 @@ export default function VideoPlayer({ state, dispatch }) {
 			<YouTube
 				videoId={state.allSongs[state.currentSongIndex].videoId}
 				opts={{
-				width: windowSize.width > 1000 ? "600" : windowSize.width,
-				height: windowSize.width > 1000 ? "300" : (windowSize.width * 9) / 16,
+					width: windowSize.width > 1000 ? "600" : windowSize.width,
+					height: windowSize.width > 1000 ? "300" : (windowSize.width * 9) / 16,
 				}}
 				onReady={onReady}
 				onStateChange={onStateChange}

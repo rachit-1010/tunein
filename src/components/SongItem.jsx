@@ -4,7 +4,7 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart} from "@fortawesome/free-regular-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-export default function SongItem({ id, name, album, duration, selected, state, dispatch}) {
+export default function SongItem({ id, name, songIndex, album, duration, selected, state, dispatch}) {
 	
 	const [isFocused, setIsFocused] = useState(false);
 	const [isLiked, setIsLiked] = useState(false);
@@ -20,7 +20,7 @@ export default function SongItem({ id, name, album, duration, selected, state, d
 	}
 
 	function onSongClick() {
-		dispatch({type:'setCurrentSongIndex', payload:id-1})
+		dispatch({type:'setCurrentSongIndex', payload:songIndex})
 		if (state.currentSongIndex === 0) {
 			dispatch({type:'playSong'})
 		}
@@ -50,7 +50,14 @@ export default function SongItem({ id, name, album, duration, selected, state, d
 			<div className="text-left flex gap-8 items-center w-1/6 grow lg:grow-0">
 				<div className="flex gap-3 items-center">
 					<div className="relative inline-block hoverTextStyle">
-						<button className="lg:hover:bg-slate-700 p-1 px-2 rounded-full text-xs " onClick={handleModal}>+<FontAwesomeIcon icon={faBars} /></button>
+						<button className="lg:hover:bg-slate-700 p-1 px-2 rounded-full text-xs " 
+							onClick={() => {
+								handleModal();
+								dispatch({type:'addToQueue', payload:id-1});
+							}}
+						>
+							+<FontAwesomeIcon icon={faBars} />
+						</button>
 					</div>
 
 					<div className="relative inline-block addPlBtn">
