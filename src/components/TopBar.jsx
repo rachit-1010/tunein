@@ -1,16 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { faCirclePause } from "@fortawesome/free-regular-svg-icons";
+import { faCirclePause } from "@fortawesome/free-solid-svg-icons";
 import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-export default function TopBar({ isMainView, setIsMainView }) {
+export default function TopBar({ state, dispatch }) {
 	return (
-		isMainView &&
+		state.isMainView &&
 		<>
 			{/* hamburger menu button for mobile view */}
-			<div className="lg:hidden fixed top-20 left-5 z-10" onClick={()=>setIsMainView(false)}>
+			<div className="lg:hidden fixed top-20 left-5 z-10" onClick={()=>dispatch({type:'setIsMainView', payload:false})}>
 				<FontAwesomeIcon icon={faBars} size="2x" style={{ color: 'var(--text-color-primary)'}} className="cursor-pointer hover:scale-110 duration-200"/>
 			</div>
 			<div className="top-bar fixed top-0 left-0 lg:left-64 right-0 h-32 lg:h-24 topbar-bg flex flex-col lg:flex-row gap-2 lg:gap-6 text-color-primary items-end pb-4 ps-16 lg:m-2 rounded-t-lg">
@@ -25,7 +25,8 @@ export default function TopBar({ isMainView, setIsMainView }) {
 				</div>
 				<div className="mr-6 lg:mr-0">
 					{/* play button */}
-					<FontAwesomeIcon icon={faCirclePlay} size="3x" style={{ color: 'var(--text-color-highlight)' }} className="cursor-pointer hover:scale-110 duration-200 mx-3"/>
+					{state.YTPlayerState !== 1 && <FontAwesomeIcon icon={faCirclePlay} size="3x" style={{ color: 'var(--text-color-highlight)' }} className="cursor-pointer hover:scale-110 duration-200 mx-3" onClick={() => {dispatch({type:"togglePlayPause"})}}/>}
+					{state.YTPlayerState === 1 && <FontAwesomeIcon icon={faCirclePause} size="3x" style={{ color: 'var(--text-color-highlight)' }} className="cursor-pointer hover:scale-110 duration-200 mx-3" onClick={() => {dispatch({type:"togglePlayPause"})}}/>}
 					{/* Shuffle button */}
 					<FontAwesomeIcon icon={faShuffle} size="3x" style={{ color: 'var(--text-color-highlight)'}} className="cursor-pointer hover:scale-110 duration-200 mx-3"/>
 				</div>

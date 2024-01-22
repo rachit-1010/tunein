@@ -2,30 +2,30 @@ import React from "react";
 import { useEffect } from 'react';
 
 
-export default function ModalCmp({content, showModal, setShowModal}) {
+export default function ModalCmp({state, dispatch}) {
 
 
 	useEffect(() => {
-		if (!showModal) return;
+		if (!state.showModal) return;
 		const timerId = setTimeout(() => {
-			setShowModal(false);
+			dispatch({type:'setShowModal', payload:false});
 		}
 		, 2000);
 
 		return () => {
 			clearTimeout(timerId);
-			setShowModal(false);
+			dispatch({type:'setShowModal', payload:false});
 		}
 
-	}, [showModal]);
+	}, [state.showModal]);
 
 
 	return (
 		<>
-			{showModal &&
+			{state.showModal &&
 			<div className="fixed bottom-36 lg:bottom-28 w-full">
 				<div className="w-fit mx-auto bg-green-400 z-10 px-3 py-2 border-none rounded-md">
-					{content}
+					{state.modalContent}
 				</div>
 			</div>}
 		</>

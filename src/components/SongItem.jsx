@@ -4,7 +4,7 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart} from "@fortawesome/free-regular-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-export default function SongItem({ id, name, album, duration, selected, setShowModal, setModalContent}) {
+export default function SongItem({ id, name, album, duration, selected, state, dispatch}) {
 	
 	const [isFocused, setIsFocused] = useState(false);
 	const [isLiked, setIsLiked] = useState(false);
@@ -14,18 +14,26 @@ export default function SongItem({ id, name, album, duration, selected, setShowM
 	}
 
 	function handleModal() {
-		setModalContent("Added to queue");
-		setShowModal(true);
+		dispatch({type:'setModalContent', payload:'Added to queue'});
+		dispatch({type:'setShowModal', payload:'success'});
+		// setShowModal(true);
+	}
+
+	function onSongClick() {
+		dispatch({type:'setCurrentSongIndex', payload:id-1})
+		if (state.currentSongIndex === 0) {
+			dispatch({type:'playSong'})
+		}
 	}
 
 	return (
 		<div 
-			className={`flex space-x-1 lg:space-x-4 items-center lg:px-4 py-1 lg:py-3 rounded-md lg:mx-1 ${isFocused ? 'lg:bg-color-secondary' : ''}`}
+			className={`flex space-x-1 lg:space-x-2 items-center lg:px-4 py-1 lg:py-3 rounded-md lg:mx-1 ${isFocused ? 'lg:bg-color-secondary' : ''}`}
 			onMouseEnter={() => setIsFocused(true)}
 			onMouseLeave={() => setIsFocused(false)}
 		>
 			<div className={`hidden lg:block w-8 text-right text-sm ${selected ? 'text-color-highlight' : 'text-color-secondary'}`}>{id}</div>
-			<div className={`w-3/5 lg:w-1/3 text-lg lg:text-xl ps-1 lg:ps-2 flex flex-col ${selected ? 'text-color-highlight' : 'text-color-primary'}`}>
+			<div className={`w-3/5 lg:w-1/3 text-lg lg:text-xl ps-1 lg:ps-2 flex flex-col ${selected ? 'text-color-highlight' : 'text-color-primary'}`} onClick={onSongClick}>
 				<div>
 					{name}
 				</div>
@@ -33,8 +41,8 @@ export default function SongItem({ id, name, album, duration, selected, setShowM
 					{album} • {duration}
 				</div>
 			</div>
-			<div className="w-1/5 hidden lg:block">{album}</div>
-			<div className="w-20 text-center hidden lg:block">{duration}</div>
+			<div className="w-1/5 hidden lg:block" onClick={onSongClick}>{album}</div>
+			<div className="w-20 text-center hidden lg:block" onClick={onSongClick}>{duration}</div>
 			<div className="lg:flex-grow text-center">
 				<FontAwesomeIcon icon={solidHeart} style={{ color: 'var(--text-color-highlight)'}} className={`scale-125 cursor-pointer me-2 lg:me-0 ${isLiked ? 'inline' : 'hidden' }`} onClick={toggleLike}/>
 				<FontAwesomeIcon icon={regularHeart} style={{ color: 'var(--text-color-highlight)'}} className={`hover:scale-125 cursor-pointer me-2 lg:me-0 ${ !isLiked ? 'inline' : 'hidden'} ${!isLiked&&isFocused ? 'lg:inline' : 'lg:hidden'}` } onClick={toggleLike}/>

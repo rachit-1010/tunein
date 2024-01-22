@@ -9,15 +9,19 @@ import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
 import PlaylistList from './PlaylistList';
 
 
-export default function LeftSidePanel({isMainView, setIsMainView}) {
+export default function LeftSidePanel({state, dispatch}) {
+
+	function switchToMainView() {
+		dispatch({type:'setIsMainView', payload:true});
+	}
 
 	return (
 		// LeftSidePanel
-		<div className={`bg-black fixed left-0 top-0 bottom-24 w-screen lg:w-64 ${isMainView ? 'hidden' : 'flex'} lg:flex flex-col`}>
+		<div className={`bg-black fixed left-0 top-0 bottom-24 w-screen lg:w-64 ${state.isMainView ? 'hidden' : 'flex'} lg:flex flex-col`}>
 			{/* First block in LeftSidePanel */}
 			<div className='LeftPanelBlock'>
 				{/* Add more songs button */}
-				<div className='LeftPanelBlockItem'>
+				<div className='LeftPanelBlockItem' onClick={switchToMainView}>
 					<div>
 						<FontAwesomeIcon icon={faMagnifyingGlass} />
 					</div>
@@ -26,7 +30,7 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 					</div>
 				</div>
 				{/* Home button */}
-				<div className='LeftPanelBlockItem'>
+				<div className='LeftPanelBlockItem' onClick={switchToMainView}>
 					<div className='leading-none'>
 						<FontAwesomeIcon icon={faCloudArrowDown} className='scale-90 m-0 p-0'/>
 					</div>
@@ -34,12 +38,14 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 						All Saved Songs
 					</div>
 				</div>
-				<div className='LeftPanelBlockItem'>
+				<div className='LeftPanelBlockItem' onClick={() => {
+					dispatch({type:"toggleShowVideo"})
+				}}>
 					<div>
-						<FontAwesomeIcon icon={faVideoSlash} />
+						{state.showVideo ? <FontAwesomeIcon icon={faVideoSlash} /> : <FontAwesomeIcon icon={faVideo} />}
 					</div>
 					<div className='text-xl pb-1'>
-						Hide Video
+						{state.showVideo ? 'Hide' : 'Show'} Video
 					</div>
 				</div>
 			</div>
@@ -55,12 +61,12 @@ export default function LeftSidePanel({isMainView, setIsMainView}) {
 					</div>
 				</div>
 				<div className='py-4'>
-					<PlaylistList />
+					<PlaylistList dispatch={dispatch} />
 				</div>
 			</div>
 			<div className='LeftPanelBlock mb-0'>
 				{/* Queues button */}
-				<div className='LeftPanelBlockItem mb-0'>
+				<div className='LeftPanelBlockItem mb-0' onClick={switchToMainView}>
 					<div>
 						<FontAwesomeIcon icon={faBars} size="2x" />
 					</div>

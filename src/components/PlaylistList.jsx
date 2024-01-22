@@ -1,24 +1,28 @@
 import React from "react";
 
-export default function PlaylistList() {
+export default function PlaylistList({dispatch}) {
 	return (
 		<>
-			<PlaylistItem name="Liked Songs 💚" numSongs={100} />
-			<PlaylistItem name="My Playlist" numSongs={5} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} />
-			<PlaylistItem name="Old" numSongs={27} />
-			<PlaylistItem name="Long Long long name" numSongs={14} />
+			<PlaylistItem name="Liked Songs 💚" numSongs={100} dispatch={dispatch}/>
+			<PlaylistItem name="My Playlist" numSongs={5} dispatch={dispatch} />
+			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
+			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
+			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
+			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
+			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
+			<PlaylistItem name="Old" numSongs={27} dispatch={dispatch}/>
+			<PlaylistItem name="Long Long long name" numSongs={14} dispatch={dispatch}/>
 		</>
 	)
 }
 
-function PlaylistItem({name, numSongs}) {
+function PlaylistItem({name, numSongs, dispatch}) {
+	function switchToMainView() {
+		dispatch({type:'setIsMainView', payload:true});
+	}
+
 	return (
-		<div className="cursor-pointer hover:bg-color-secondary rounded-md">
+		<div className="cursor-pointer hover:bg-color-secondary rounded-md" onClick={switchToMainView}>
 			<div className="text-xl text-left ps-4 text-color-primary">
 				{name}
 			</div>
