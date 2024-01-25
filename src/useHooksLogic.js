@@ -7,9 +7,10 @@ const initialState = {
 	showVideo: false,
 	allSongs: [],
 	currentSongIndex: 0, //global index - based on the allSongs list
-	currentSection: "All Saved Songs", //to show at the TopBar
-	currentSongList: [], // to display in the mainpanel
-	currenPlayingSection:"All Saved Songs", // to decide the nextSong
+	currentSection: "All Saved Songs", //to show at the TopBar - more like currentDisplaySection
+	paramPage: "saved_songs", 
+	currentSongList: [], // to display in the mainpanel - again more like currentDisplaySongList - not the playing list
+	currentPlayingSection: [], // to decide the nextSong
 	queue: [],
 	playlistList: [],
 	YTPlayer: null,
@@ -52,18 +53,51 @@ const reducer = (state, action) => {
 			if (state.queue.length > 0) {
 				return {...state, currentSongIndex: state.queue[0], queue: state.queue.slice(1)}
 			}
-			// if there is nothing in the queue, then 
-			if (state.currentSongIndex < state.allSongs.length - 1) {
-				return {...state, currentSongIndex: state.currentSongIndex + 1}
-			} else {
-				return state
+			if (state.currentPlayingSection === "All Saved Songs") {
+				if (state.currentSongIndex < state.allSongs.length - 1) {
+					return {...state, currentSongIndex: state.currentSongIndex + 1}
+				} 
 			}
+			else if (state.currentPlayingSection !== "Queue" && state.currentPlayingSection !== "All Saved Songs") {
+				console.log("playing next song in the playlist")
+				let index = -1
+				for (let i = 0; i < state.playlistList[state.paramPage].songs.length; i++) {
+					if (state.playlistList[state.paramPage].songs[i] === state.currentSongIndex) {
+						index = i
+						break
+					}
+				}
+				console.log("index", index)
+				if (index < state.playlistList[state.paramPage].songs.length - 1) {
+					console.log("next song index", index + 1, state.playlistList[state.paramPage].songs[index + 1])
+					return {...state, currentSongIndex: state.playlistList[state.paramPage].songs[index + 1]}
+				}
+			}
+
+			return state
+
 		case "prevSong":
-			if (state.currentSongIndex > 0) {
-				return {...state, currentSongIndex: state.currentSongIndex - 1}
-			} else {
+			if (state.queue.length > 0) {
 				return state
+			} else if (state.currentPlayingSection === "All Saved Songs") {
+				if (state.currentSongIndex > 0) {
+					return {...state, currentSongIndex: state.currentSongIndex - 1}
+				}
+			} else if (state.currentPlayingSection !== "Queue" && state.currentPlayingSection !== "All Saved Songs") {
+				let index = -1
+				for (let i = 0; i < state.playlistList[state.paramPage].songs.length; i++) {
+					if (state.playlistList[state.paramPage].songs[i] === state.currentSongIndex) {
+						index = i
+						break
+					}
+				}
+				if (index > 0) {
+					return {...state, currentSongIndex: state.playlistList[state.paramPage].songs[index - 1]}
+				}
+				
 			}
+			return state
+
 		case "setYTPlayerState":
 			return {...state, YTPlayerState: action.payload}
 		case "setQueue":
@@ -78,6 +112,8 @@ const reducer = (state, action) => {
 			return {...state, playlistList: action.payload}
 		case "setCurrentPlayingSection":
 			return {...state, currentPlayingSection: action.payload}
+		case "setParamPage":
+			return {...state, paramPage: action.payload}
 		default:
 			return state
 	}

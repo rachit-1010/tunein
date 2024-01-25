@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { faCirclePause } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,12 @@ export default function TopBar({ state, dispatch }) {
 	const { page } = useParams();
 
 	useEffect(() => {
+		// convert page to an integer if it is a string
+		if (!isNaN(page)) {
+			dispatch({type:"setParamPage", payload:parseInt(page)})
+		} else {
+			dispatch({type:"setParamPage", payload:page})
+		}
 		if (page === 'queue') {
 			dispatch({type:'setCurrentSection', payload:'Queue'})
 		} else if (page === 'search') {

@@ -24,6 +24,7 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 		if (state.currentSongIndex === 0) {
 			dispatch({type:'playSong'})
 		}
+		dispatch({type:"setCurrentPlayingSection", payload: state.currentSection})
 	}
 
 	return (
