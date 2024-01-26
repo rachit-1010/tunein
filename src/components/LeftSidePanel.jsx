@@ -23,7 +23,7 @@ export default function LeftSidePanel({state, dispatch}) {
 			<div className='LeftPanelBlock'>
 				{/* Add more songs button */}
 				<Link to="/search">
-				<div className='LeftPanelBlockItem' onClick={switchToMainView}>
+				<div className={`LeftPanelBlockItem ${state.currentSection === "Search" ? "text-color-primary" : "text-color-secondary"}`} onClick={switchToMainView}>
 					<div>
 						<FontAwesomeIcon icon={faMagnifyingGlass} />
 					</div>
@@ -34,7 +34,7 @@ export default function LeftSidePanel({state, dispatch}) {
 				</Link>
 				{/* Home button */}
 				<Link to="/saved_songs">
-				<div className='LeftPanelBlockItem' onClick={switchToMainView}>
+				<div className={`LeftPanelBlockItem ${state.currentSection === "All Saved Songs" ? "text-color-primary" : "text-color-secondary"}`} onClick={switchToMainView}>
 					<div className='leading-none'>
 						<FontAwesomeIcon icon={faCloudArrowDown} className='scale-90 m-0 p-0'/>
 					</div>

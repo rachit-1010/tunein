@@ -35,7 +35,7 @@
 }
 
 .LeftPanelBlockItem {
-	@apply flex items-center cursor-pointer gap-4 py-1 hover:text-color-primary text-color-secondary
+	@apply flex items-center cursor-pointer gap-4 py-1 hover:text-color-primary 
 }
 
 .ScrollCSS::-webkit-scrollbar {

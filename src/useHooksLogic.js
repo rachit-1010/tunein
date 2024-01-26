@@ -114,6 +114,19 @@ const reducer = (state, action) => {
 			return {...state, currentPlayingSection: action.payload}
 		case "setParamPage":
 			return {...state, paramPage: action.payload}
+		case "shuffleSongs":
+			// add songs from currentSection to the queue and shuffle the queue
+			let newQueue = []
+			if (typeof state.paramPage === "number") {
+				newQueue = [...state.playlistList[state.paramPage].songs]
+			}
+			// shuffle the queue
+			for (let i = newQueue.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[newQueue[i], newQueue[j]] = [newQueue[j], newQueue[i]];
+			}
+			return {...state, queue: newQueue}
+
 		default:
 			return state
 	}

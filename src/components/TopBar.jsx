@@ -10,6 +10,25 @@ export default function TopBar({ state, dispatch }) {
 
 	const { page } = useParams();
 
+	const onClickBigPlayButton = () => {
+		if (state.currentPlayingSection !== state.currentSection) {
+			dispatch({type:'setCurrentPlayingSection', payload:state.currentSection})
+			if (state.currentSection === "All Saved Songs") {
+				dispatch({type:'setCurrentSongIndex', payload:0})
+			}
+			else if (typeof state.paramPage === "number") {
+				dispatch({type:'setCurrentSongIndex', payload:state.playlistList[state.paramPage].songs[0]})
+			}
+		}
+	}
+
+	const shuffleClick = () => {
+		dispatch({type:'shuffleSongs'})
+		dispatch({type:'setModalContent', payload:'Songs shuffled and Added to queue'});
+		dispatch({type:'setShowModal', payload:'success'});
+		dispatch({type:'nextSong'})
+	}
+
 	useEffect(() => {
 		// convert page to an integer if it is a string
 		if (!isNaN(page)) {
@@ -51,10 +70,12 @@ export default function TopBar({ state, dispatch }) {
 				</div>
 				<div className="mr-6 lg:mr-0">
 					{/* play button */}
-					{state.YTPlayerState !== 1 && <FontAwesomeIcon icon={faCirclePlay} size="3x" style={{ color: 'var(--text-color-highlight)' }} className="cursor-pointer hover:scale-110 duration-200 mx-3" onClick={() => {dispatch({type:"togglePlayPause"})}}/>}
-					{state.YTPlayerState === 1 && <FontAwesomeIcon icon={faCirclePause} size="3x" style={{ color: 'var(--text-color-highlight)' }} className="cursor-pointer hover:scale-110 duration-200 mx-3" onClick={() => {dispatch({type:"togglePlayPause"})}}/>}
-					{/* Shuffle button */}
-					<FontAwesomeIcon icon={faShuffle} size="3x" style={{ color: 'var(--text-color-highlight)'}} className="cursor-pointer hover:scale-110 duration-200 mx-3"/>
+					{!(state.YTPlayerState === 1 && state.currentPlayingSection === state.currentSection) && <FontAwesomeIcon icon={faCirclePlay} size="3x" style={{ color: 'var(--text-color-highlight)' }} className="cursor-pointer hover:scale-110 duration-200 mx-3" onClick={() => {dispatch({type:"togglePlayPause"}); onClickBigPlayButton()}}/>}
+					{(state.YTPlayerState === 1 && state.currentPlayingSection === state.currentSection) && <FontAwesomeIcon icon={faCirclePause} size="3x" style={{ color: 'var(--text-color-highlight)' }} className="cursor-pointer hover:scale-110 duration-200 mx-3" onClick={() => {dispatch({type:"togglePlayPause"})}}/>}
+					{/* Shuffle button - shown only if currentSection == some Playlist*/}
+					{ (typeof state.paramPage === "number") &&
+						<FontAwesomeIcon icon={faShuffle} size="3x" style={{ color: 'var(--text-color-highlight)'}} className="cursor-pointer hover:scale-110 duration-200 mx-3" onClick={shuffleClick}/>
+					}	
 				</div>
 				<div className="self-end flex-grow text-right me-8 hidden lg:block">
 					<button className="text-red-300 px-4 py-2 border-red-600 border-2 whitespace-nowrap">
