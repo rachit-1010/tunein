@@ -8,6 +8,7 @@ import { faBackwardStep } from "@fortawesome/free-solid-svg-icons";
 export default function MusicPlayer({state, dispatch}) {
 
 	return (
+		state.allSongs &&
 		<div className="bg-black fixed bottom-0 w-full h-24 flex items-center justify-between lg:justify-evenly">
 			{/* Currently Playing Song*/}
 			<div className="p-4 w-60 text-color-primary text-xl font-medium">

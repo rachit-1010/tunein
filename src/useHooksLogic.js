@@ -1,4 +1,7 @@
 import React, {useEffect, useReducer} from "react";
+import { useAuth } from './components/AuthContext';
+
+
 
 const initialState = {
 	showModal: false,
@@ -15,7 +18,7 @@ const initialState = {
 	playlistList: [],
 	YTPlayer: null,
 	YTPlayerState: null,
-	
+	searchQuery: ""
 }
 
 const reducer = (state, action) => {
@@ -126,7 +129,31 @@ const reducer = (state, action) => {
 				[newQueue[i], newQueue[j]] = [newQueue[j], newQueue[i]];
 			}
 			return {...state, queue: newQueue}
-
+		case "createPlaylist":
+			// create an empty playlist with the given name and add it to the playlistList
+			const newPlaylist = {
+				playlistName: action.payload,
+				songs: [],
+				numSongs: 0,
+				totalDuration: "0 h 0 min"
+			}
+			return {...state, playlistList: [...state.playlistList, newPlaylist]}
+		case "addSongToPlaylist":
+			const newPlaylistList = [...state.playlistList]
+			newPlaylistList[action.payload.playlistIndex].songs.push(action.payload.songIndex)
+			newPlaylistList[action.payload.playlistIndex].numSongs += 1
+			return {...state, playlistList: newPlaylistList}
+		case "removeSongFromPlaylist":
+			const newPlaylistList2 = [...state.playlistList]
+			// find the index of the song in the playlist
+			const index = newPlaylistList2[action.payload.playlistIndex].songs.indexOf(action.payload.songIndex)
+			newPlaylistList2[action.payload.playlistIndex].songs.splice(index, 1)
+			newPlaylistList2[action.payload.playlistIndex].numSongs -= 1
+			return {...state, playlistList: newPlaylistList2}
+		case "setSearchQuery":
+			return {...state, searchQuery: action.payload}
+		case "addSong":
+			return {...state, allSongs: [...state.allSongs, action.payload]}
 		default:
 			return state
 	}
@@ -134,9 +161,18 @@ const reducer = (state, action) => {
 
 const useHooksLogic = () => {
 	const [state, dispatch] = useReducer(reducer, initialState)
+	const { token } = useAuth();
+	// dispatch({type: "setToken", payload: token})
 
 	useEffect(() => {
-		fetch("http://127.0.0.1:5000/getallsongs")
+		console.log("useHooksLogic useEffect")
+		if (token !== null) {
+		fetch("http://127.0.0.1:5000/getallsongs", {
+			method: "GET",
+			headers: {
+				"Authorization": token
+			}
+		})
 			.then(res => res.json())
 			.then(data => {
 				data = JSON.parse(data)
@@ -149,13 +185,20 @@ const useHooksLogic = () => {
 				dispatch({type: "setCurrentSongList", payload: currentSongList})
 			})
 		
-		fetch("http://127.0.0.1:5000/getallplaylists")
+		fetch("http://127.0.0.1:5000/getallplaylists", {
+			method: "GET",
+			headers: {
+				"Authorization": token
+			}
+
+		})
 			.then(res => res.json())
 			.then(data => {
 				data = JSON.parse(data)
 				dispatch({type: "setPlaylistList", payload: data})
 			})
-	}, [])
+		}
+	}, [token])
 
 	useEffect(() => {
 		if (state.currentSection === "All Saved Songs") {

@@ -1,9 +1,13 @@
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
+import { useAuth } from "./AuthContext";
 
 export default function LoginPage() {
+const { login } = useAuth();
+
   const handleLoginSuccess = (response) => {
-    console.log("Google login success:", response);
+    console.log("Google login success:", response.credential);
+	login(response.credential);
   };
 
   const handleLoginFailure = (error) => {

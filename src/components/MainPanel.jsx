@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SongItem from "./SongItem";
+import { useParams } from "react-router-dom";
+import SearchResults from "./SearchResults";
 
 export default function MainPanel({ state, dispatch}) {
-
+	const { page } = useParams();
 	return (
-	state.isMainView &&
+	(state.isMainView &&  page !== 'search') ?
 		<div className="MainPanel fixed top-32 lg:top-24 bottom-24 left-0 lg:left-64 right-0 text-color-secondary bg-color-primary py-4 lg:mt-2 lg:ms-2 flex flex-col lg:rounded-b-lg">
 			<SongListHeader />
 			<div className="overflow-y-scroll ScrollCSS w-full">
@@ -28,7 +30,8 @@ export default function MainPanel({ state, dispatch}) {
 					})
 				}
 			</div>
-		</div>
+		</div> :
+		<SearchResults state={state} dispatch={dispatch}/>
 		
 	)
 }

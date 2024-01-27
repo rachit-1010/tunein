@@ -1,27 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 export default function PlaylistList({state, dispatch}) {
+
+	const { token } = useAuth();
+
+	function newPlaylist(e) {
+		e.preventDefault();
+		const newPlaylistName = e.target[0].value;
+		console.log(newPlaylistName, token);
+		e.target[0].value = "";
+		fetch(`http://127.0.0.1:5000/createPlaylist`, {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": token,
+			},
+			body: JSON.stringify({
+				"playlistName": newPlaylistName,
+			})
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				dispatch({type:'createPlaylist', payload:newPlaylistName})
+			}
+		})
+	}
+
 	return (
 		<>
-			{/* <PlaylistItem name="Liked Songs 💚" numSongs={100} dispatch={dispatch}/>
-			<PlaylistItem name="My Playlist" numSongs={5} dispatch={dispatch} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
-			<PlaylistItem name="Slow Mornings" numSongs={10} dispatch={dispatch} />
-			<PlaylistItem name="Old" numSongs={27} dispatch={dispatch}/>
-			<PlaylistItem name="Long Long long name" numSongs={14} dispatch={dispatch}/> */}
-
-			{
-				state.playlistList.map((playlist, index) => {
-					const isSelected = state.paramPage === index ? true : false;
-					return (
-						<PlaylistItem index={index} name={playlist.playlistName} numSongs={playlist.numSongs} dispatch={dispatch} selected={isSelected}/>
-					)
-				})
-			}
+			<div className="border-b-2 border-gray-600 pb-2">
+				{state.playlistList  && 
+					state.playlistList.map((playlist, index) => {
+						const isSelected = state.paramPage === index ? true : false;
+						return (
+							<PlaylistItem index={index} name={playlist.playlistName} numSongs={playlist.numSongs} dispatch={dispatch} selected={isSelected}/>
+						)
+					})
+				}
+			</div>
+			{/* add playlist button */}
+			<div className="cursor-pointer py-4">
+				<div className="text-xl text-left text-color-primary">
+					<form onSubmit={newPlaylist}>
+					<input type="text" placeholder="New Playlist" className="bg-transparent border-b-2 border-color-primary text-color-primary focus:outline-none focus:border-color-highlight w-full"/>
+					</form>
+				</div>
+			</div>
 		</>
 	)
 }
