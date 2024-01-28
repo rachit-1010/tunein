@@ -39,7 +39,7 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 	}
 
 	function addSongToPlaylist(songIndex, playlistIndex) {
-		fetch("http://127.0.0.1:5000/addSongToPlaylist", {
+		fetch(`${state.backendURL}}/addSongToPlaylist`, {
 				method: "POST",
 				headers: {
 					"Authorization": token,

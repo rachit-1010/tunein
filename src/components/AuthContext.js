@@ -12,23 +12,6 @@ export const AuthProvider = ({ children }) => {
 	  localStorage.setItem("token", newToken)
   };
 
-  // useEffect(() => {
-  //   if (token !== null) {
-  //     fetch ("http://127.0.0.1:5000/getlogininfo", {
-  //       method: "GET",
-  //       headers: {
-  //         "Authorization": token
-  //       }
-  //     })
-  //       .then(res => res.json())
-  //       .then(data => {
-  //         console.log(data)
-  //         setUsername(data)
-  //       })
-  //       .catch(err => console.log())
-  //   }
-  // }, [token])
-
   const logout = () => {
     setToken(null);
 	// also remove token from local storage

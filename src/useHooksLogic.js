@@ -18,7 +18,9 @@ const initialState = {
 	playlistList: [],
 	YTPlayer: null,
 	YTPlayerState: null,
-	searchQuery: ""
+	searchQuery: "",
+	backendURL: "https://tunein-update-backend-a6f24b845c75.herokuapp.com/",
+	// backendURL: "http://127.0.0.1:5000/"
 }
 
 const reducer = (state, action) => {
@@ -170,7 +172,7 @@ const useHooksLogic = () => {
 
 		async function getUserDetails () {
 			if (token !== null) {
-				await fetch ("http://127.0.0.1:5000/getlogininfo", {
+				await fetch (`${state.backendURL}/getlogininfo`, {
 					method: "GET",
 					headers: {
 					"Authorization": token
@@ -185,7 +187,7 @@ const useHooksLogic = () => {
 			}
 		}
 		getUserDetails().then(() => {
-		fetch("http://127.0.0.1:5000/getallsongs", {
+		fetch(`${state.backendURL}/getallsongs`, {
 			method: "GET",
 			headers: {
 				"Authorization": token
@@ -203,7 +205,7 @@ const useHooksLogic = () => {
 				dispatch({type: "setCurrentSongList", payload: currentSongList})
 			})
 		
-		fetch("http://127.0.0.1:5000/getallplaylists", {
+		fetch(`${state.backendURL}/getallplaylists`, {
 			method: "GET",
 			headers: {
 				"Authorization": token
