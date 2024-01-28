@@ -12,22 +12,22 @@ export const AuthProvider = ({ children }) => {
 	  localStorage.setItem("token", newToken)
   };
 
-  useEffect(() => {
-    if (token !== null) {
-      fetch ("http://127.0.0.1:5000/getlogininfo", {
-        method: "GET",
-        headers: {
-          "Authorization": token
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          setUsername(data)
-        })
-        .catch(err => console.log())
-      }
-  }, [token])
+  // useEffect(() => {
+  //   if (token !== null) {
+  //     fetch ("http://127.0.0.1:5000/getlogininfo", {
+  //       method: "GET",
+  //       headers: {
+  //         "Authorization": token
+  //       }
+  //     })
+  //       .then(res => res.json())
+  //       .then(data => {
+  //         console.log(data)
+  //         setUsername(data)
+  //       })
+  //       .catch(err => console.log())
+  //   }
+  // }, [token])
 
   const logout = () => {
     setToken(null);
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, username }}>
+    <AuthContext.Provider value={{ token, login, logout, username, setUsername }}>
       {children}
     </AuthContext.Provider>
   );

@@ -14,6 +14,11 @@ const { login } = useAuth();
     console.error("Google login failure:", error);
   };
 
+  const guestLogin = () => {
+	console.log("Guest login");
+	login("guest");
+  }
+
   return (
 	<>
 		<div className="w-screen h-screen flex justify-center items-center LoginBg">
@@ -30,7 +35,7 @@ const { login } = useAuth();
 						onFailure={handleLoginFailure}
 						buttonText="Login with Google"
 					/>
-					<button className="px-4 h-10 bg-slate-50 text-black mt-6 rounded-md font-bold">Continue as Guest</button>
+					<button className="px-4 h-10 bg-slate-50 text-black mt-6 rounded-md font-bold" onClick={guestLogin}>Continue as Guest</button>
 				
 				</div>
 			</div>

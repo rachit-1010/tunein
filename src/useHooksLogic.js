@@ -161,12 +161,30 @@ const reducer = (state, action) => {
 
 const useHooksLogic = () => {
 	const [state, dispatch] = useReducer(reducer, initialState)
-	const { token } = useAuth();
+	const { token, setUsername } = useAuth();
 	// dispatch({type: "setToken", payload: token})
 
 	useEffect(() => {
-		console.log("useHooksLogic useEffect")
+		console.log("useHooksLogic useEffect", token)
 		if (token !== null) {
+
+		async function getUserDetails () {
+			if (token !== null) {
+				await fetch ("http://127.0.0.1:5000/getlogininfo", {
+					method: "GET",
+					headers: {
+					"Authorization": token
+					}
+				})
+					.then(res => res.json())
+					.then(data => {
+					console.log(data)
+					setUsername(data)
+					})
+					.catch(err => console.log())
+			}
+		}
+		getUserDetails().then(() => {
 		fetch("http://127.0.0.1:5000/getallsongs", {
 			method: "GET",
 			headers: {
@@ -197,6 +215,7 @@ const useHooksLogic = () => {
 				data = JSON.parse(data)
 				dispatch({type: "setPlaylistList", payload: data})
 			})
+		})
 		}
 	}, [token])
 
