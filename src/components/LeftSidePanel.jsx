@@ -6,11 +6,15 @@ import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import PlaylistList from './PlaylistList';
 import { Link } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 
 export default function LeftSidePanel({state, dispatch}) {
+
+	const { logout } = useAuth();
 
 	function switchToMainView() {
 		dispatch({type:'setIsMainView', payload:true});
@@ -82,6 +86,21 @@ export default function LeftSidePanel({state, dispatch}) {
 				</div>
 				</Link>
 			</div>
+			{ window.innerWidth < 1000 &&
+			<div className='LeftPanelBlock mb-0'>
+				{/* Queues button */}
+				<Link to='/queue'>
+				<div className='LeftPanelBlockItem mb-0' onClick={() => {switchToMainView(); logout();}}>
+					<div>
+						<FontAwesomeIcon icon={faRightFromBracket} size="2x" />
+					</div>
+					<div className='text-xl pb-1 text-red-400'>
+						Logout
+					</div>
+				</div>
+				</Link>
+			</div>
+			}
 		</div>
 	)
 }

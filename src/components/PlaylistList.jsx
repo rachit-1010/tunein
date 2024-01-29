@@ -11,7 +11,7 @@ export default function PlaylistList({state, dispatch}) {
 		const newPlaylistName = e.target[0].value;
 		console.log(newPlaylistName, token);
 		e.target[0].value = "";
-		fetch(`http://127.0.0.1:5000/createPlaylist`, {
+		fetch(`${state.backendURL}/createPlaylist`, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",

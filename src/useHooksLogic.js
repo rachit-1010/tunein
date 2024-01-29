@@ -40,8 +40,9 @@ const reducer = (state, action) => {
 		case "setYTPlayer":
 			return {...state, YTPlayer: action.payload}
 		case "playSong":
-			console.log("playSong", state.currentSongIndex)
+			console.log("playSong", state.currentSongIndex, state.YTPlayer)
 			if (state.YTPlayer) {
+				console.log("playing song from playSong")
 				state.YTPlayer.playVideo()
 			}
 			return state
@@ -50,6 +51,7 @@ const reducer = (state, action) => {
 				if (state.YTPlayer.getPlayerState() === 1) {
 					state.YTPlayer.pauseVideo()
 				} else {
+					console.log("playing song from togglePlayPause")
 					state.YTPlayer.playVideo()
 				}
 			}
@@ -146,6 +148,12 @@ const reducer = (state, action) => {
 			newPlaylistList[action.payload.playlistIndex].numSongs += 1
 			return {...state, playlistList: newPlaylistList}
 		case "removeSongFromPlaylist":
+			if (action.payload.playlistIndex === "queue") {
+				const index = state.queue.indexOf(action.payload.songIndex)
+				const newQueue = [...state.queue]
+				newQueue.splice(index, 1)
+				return {...state, queue: newQueue, currentSongList: newQueue}
+			}
 			const newPlaylistList2 = [...state.playlistList]
 			// find the index of the song in the playlist
 			const index = newPlaylistList2[action.payload.playlistIndex].songs.indexOf(action.payload.songIndex)
@@ -197,6 +205,7 @@ const useHooksLogic = () => {
 			.then(data => {
 				data = JSON.parse(data)
 				dispatch({type: "setAllSongs", payload: data})
+				console.log("allSongs set", data)
 				// set currentSongList to [0,...,data.length-1]
 				let currentSongList = []
 				for (let i = 0; i < data.length; i++) {

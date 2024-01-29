@@ -26,11 +26,16 @@ export default function VideoPlayer({ state, dispatch }) {
   const onReady = (event) => {
 	dispatch({type:"setYTPlayer", payload:event.target})
 	dispatch({type:"setYTPlayerState", payload:event.target.getPlayerState()})
+	// event.target.playVideo()
+	console.log("LINE 29: ",event.target.getPlayerState())
   };
 
   const onStateChange = (event) => {
-	if (event.data === -1) {
-		dispatch({type:"playSong"})
+	console.log("LINE 33 - onStateChange: ",event.data)
+	if (event.data === -1 || event.data === 5) {
+		// dispatch({type:"playSong"})
+		event.target.playVideo()
+		console.log("playVideo() clicked")
 	}
 	if (event.data === 0) {
 		dispatch({type:"nextSong"})

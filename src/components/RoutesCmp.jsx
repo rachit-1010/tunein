@@ -14,18 +14,18 @@ import { Navigate } from "react-router-dom";
 
 export default function RoutesCmp() {
 
-	const { token, login } = useAuth();
+	const { token } = useAuth();
 	const [state, dispatch] = useHooksLogic();
 
 	// check if there is a token in the local storage
 	// if there is, then login
 
-	React.useEffect(() => {
-		const token = localStorage.getItem("token");
-		if (token) {
-			login(token);
-		}
-	}, [])
+	// React.useEffect(() => {
+	// 	const token = localStorage.getItem("token");
+	// 	if (token) {
+	// 		login(token);
+	// 	}
+	// }, [])
 	
 
 	return (
@@ -33,6 +33,8 @@ export default function RoutesCmp() {
 			<Routes>
 				<Route path="/login" element={token === null ? <LoginPage /> : <Navigate to="/saved_songs" replace/>
 			 } />
+				<Route path="/" element={token === null ? <LoginPage /> : <Navigate to="/saved_songs" replace/>
+				} />
 				<Route path="/:page" element={token === null ? <Navigate to="/login" replace/> : 
 					<>
 						<LeftSidePanel state={state} dispatch={dispatch} />

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart} from "@fortawesome/free-regular-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
@@ -39,7 +39,7 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 	}
 
 	function addSongToPlaylist(songIndex, playlistIndex) {
-		fetch(`${state.backendURL}}/addSongToPlaylist`, {
+		fetch(`${state.backendURL}/addSongToPlaylist`, {
 				method: "POST",
 				headers: {
 					"Authorization": token,
@@ -62,7 +62,13 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 	}
 
 	function removeSongFromPlaylist(songIndex, playlistIndex) {
-		fetch("http://127.0.0.1:5000/removeSongFromPlaylist", {
+		if(playlistIndex === "queue") {
+			dispatch({type:'removeSongFromPlaylist', payload:{songIndex:songIndex, playlistIndex:playlistIndex}});
+			dispatch({type:'setModalContent', payload:'Song deleted from playlist'});
+			dispatch({type:'setShowModal', payload:true});
+			return;
+		}
+		fetch(`${state.backendURL}/removeSongFromPlaylist`, {
 				method: "POST",
 				headers: {
 					"Authorization": token,
@@ -85,21 +91,21 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 
 	return (
 		<div 
-			className={`flex space-x-1 lg:space-x-2 items-center lg:px-4 py-1 lg:py-3 rounded-md lg:mx-1 ${isFocused ? 'lg:bg-color-secondary' : ''}`}
+			className={`flex space-x-1 lg:space-x-2 items-center lg:px-4 rounded-md lg:mx-1 ${isFocused ? 'lg:bg-color-secondary' : ''}`}
 			onMouseEnter={() => setIsFocused(true)}
 			onMouseLeave={() => setIsFocused(false)}
 		>
-			<div className={`hidden lg:block w-8 text-right text-sm ${selected ? 'text-color-highlight' : 'text-color-secondary'}`}>{id}</div>
-			<div className={`w-3/5 lg:w-1/3 text-lg lg:text-xl ps-1 lg:ps-2 flex flex-col ${selected ? 'text-color-highlight' : 'text-color-primary'}`} onClick={onSongClick}>
+			<div className={`hidden lg:block w-8 py-1 lg:py-3 text-right text-sm ${selected ? 'text-color-highlight' : 'text-color-secondary'}`}>{id}</div>
+			<div className={`w-3/5 lg:w-1/3 py-1 lg:py-3 text-lg lg:text-xl ps-1 lg:ps-2 flex flex-col ${selected ? 'text-color-highlight' : 'text-color-primary'}`} onClick={onSongClick}>
 				<div>
 					{name}
 				</div>
-				<div className='text-color-secondary text-xs lg:hidden'>
+				<div className='text-color-secondary text-xs lg:hidden py-1 lg:py-3'>
 					{album} • {duration}
 				</div>
 			</div>
-			<div className="w-1/5 hidden lg:block" onClick={onSongClick}>{album}</div>
-			<div className="w-20 text-center hidden lg:block" onClick={onSongClick}>{duration}</div>
+			<div className="w-1/5 py-1 lg:py-3 hidden lg:block" onClick={onSongClick}>{album}</div>
+			<div className="w-20 py-1 lg:py-3 text-center hidden lg:block" onClick={onSongClick}>{duration}</div>
 			<div className="lg:flex-grow text-center">
 					<FontAwesomeIcon icon={solidHeart} style={{ color: 'var(--text-color-highlight)'}} className={`scale-125 cursor-pointer me-2 lg:me-0 ${isLiked ? 'inline' : 'hidden' } ${page==='saved_songs'?'':'invisible'}`} onClick={toggleLike}/>
 					<FontAwesomeIcon icon={regularHeart} style={{ color: 'var(--text-color-highlight)'}} className={`hover:scale-125 cursor-pointer me-2 lg:me-0 ${ !isLiked ? 'inline' : 'hidden'} ${!isLiked&&isFocused ? 'lg:inline' : 'lg:hidden'} ${page==='saved_songs'?'':'invisible'}` } onClick={toggleLike}/>
@@ -141,7 +147,7 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 						<button className={`lg:hover:bg-slate-700 p-2 text-xs rounded-md ${isFocused?'':'lg:invisible'}`} onClick={() => {
 							removeSongFromPlaylist(songIndex, page);
 						}}>
-							<FontAwesomeIcon icon={faTrash} color='#b83737'/>
+							<FontAwesomeIcon icon={faMinus} color='#b83737'/>
 						</button>
 					</div>
 					}

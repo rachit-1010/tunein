@@ -33,7 +33,7 @@ export default function SearchResults({ state, dispatch }) {
 	useEffect(() => {
 		if (state.searchQuery !== "") {
 			console.log(state.searchQuery);
-			fetch("http://127.0.01:5000/searchSongYT", {
+			fetch(`${state.backendURL}/searchSongYT`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -57,7 +57,7 @@ export default function SearchResults({ state, dispatch }) {
 			duration: duration,
 			videoId: videoId
 		}
-		fetch("http://127.0.01:5000/addSong", {
+		fetch(`${state.backendURL}/addSong`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function SearchResults({ state, dispatch }) {
 			{
 				searchResults.map((song, index) => {
 					return (
-						<div className="py-8 my-4 px-24 w-fit mx-auto bg-color-secondary cursor-pointer rounded-md" onClick={() => setInFocusSong(index)}>
+						<div className="py-8 my-4 px-4 lg:px-24 w-fit mx-auto bg-color-secondary cursor-pointer rounded-md" onClick={() => setInFocusSong(index)}>
 							{/* embed the video here */}
 							<YouTube
 								videoId={song["id"]["videoId"]}

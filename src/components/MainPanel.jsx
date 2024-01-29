@@ -31,7 +31,7 @@ export default function MainPanel({ state, dispatch}) {
 				}
 			</div>
 		</div> :
-		<SearchResults state={state} dispatch={dispatch}/>
+		(state.isMainView && <SearchResults state={state} dispatch={dispatch}/>)
 		
 	)
 }

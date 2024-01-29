@@ -84,9 +84,9 @@ export default function TopBar({ state, dispatch }) {
 				}
 
 				<div className="self-end flex-grow text-right me-8 hidden lg:block">
-					<button className="px-2 py-1 border-2 whitespace-nowrap rounded-xl text-color-secondary leading-none" onClick={logout}>
+					<button className="p-2  whitespace-nowrap rounded-md text-color-secondary leading-none bg-color-secondary" onClick={logout}>
 						<div>Hi, {username}!</div>
-						<div><span className="text-red-300">Logout?</span></div>
+						<div><span className="text-red-400">Logout?</span></div>
 					</button>
 				</div>
 			</div>
