@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tunein/static/css/main.f736b62e.css",
-    "main.js": "/tunein/static/js/main.747c47ac.js",
+    "main.css": "/tunein/static/css/main.c0095a9a.css",
+    "main.js": "/tunein/static/js/main.45fca9dc.js",
     "static/js/787.9c2e1bcd.chunk.js": "/tunein/static/js/787.9c2e1bcd.chunk.js",
     "index.html": "/tunein/index.html",
-    "main.f736b62e.css.map": "/tunein/static/css/main.f736b62e.css.map",
-    "main.747c47ac.js.map": "/tunein/static/js/main.747c47ac.js.map",
+    "main.c0095a9a.css.map": "/tunein/static/css/main.c0095a9a.css.map",
+    "main.45fca9dc.js.map": "/tunein/static/js/main.45fca9dc.js.map",
     "787.9c2e1bcd.chunk.js.map": "/tunein/static/js/787.9c2e1bcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f736b62e.css",
-    "static/js/main.747c47ac.js"
+    "static/css/main.c0095a9a.css",
+    "static/js/main.45fca9dc.js"
   ]
 }
