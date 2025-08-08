@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer} from "react";
+import {useEffect, useReducer} from "react";
 import { useAuth } from './components/AuthContext';
 
 
@@ -19,7 +19,8 @@ const initialState = {
 	YTPlayer: null,
 	YTPlayerState: null,
 	searchQuery: "",
-	backendURL: "https://tunein-update-backend-a6f24b845c75.herokuapp.com/",
+	backendURL: "https://tunein-backend.onrender.com/",
+	isFetchingData: true,
 	// backendURL: "http://127.0.0.1:5000/"
 }
 
@@ -164,6 +165,10 @@ const reducer = (state, action) => {
 			return {...state, searchQuery: action.payload}
 		case "addSong":
 			return {...state, allSongs: [...state.allSongs, action.payload]}
+		case "setInitialStates":
+			return {initialState}
+		case "setIsFetchingData":
+			return {...state, isFetchingData: action.payload}
 		default:
 			return state
 	}
@@ -205,7 +210,6 @@ const useHooksLogic = () => {
 			.then(data => {
 				data = JSON.parse(data)
 				dispatch({type: "setAllSongs", payload: data})
-				console.log("allSongs set", data)
 				// set currentSongList to [0,...,data.length-1]
 				let currentSongList = []
 				for (let i = 0; i < data.length; i++) {
@@ -227,7 +231,11 @@ const useHooksLogic = () => {
 				dispatch({type: "setPlaylistList", payload: data})
 			})
 		})
+		.then(() => {
+			dispatch({type: "setIsFetchingData", payload: false})
+		})
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [token])
 
 	useEffect(() => {
@@ -238,6 +246,7 @@ const useHooksLogic = () => {
 		} else if (typeof state.currentSection === "number") {
 			dispatch({type: "setCurrentSongList", payload: state.playlistList[state.currentSection].songs})
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state.currentSection])
 
 	return [state, dispatch]

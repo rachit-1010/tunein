@@ -36,6 +36,7 @@ export default function RoutesCmp() {
 				<Route path="/" element={token === null ? <LoginPage /> : <Navigate to="/saved_songs" replace/>
 				} />
 				<Route path="/:page" element={token === null ? <Navigate to="/login" replace/> : 
+					!state.isFetchingData && 
 					<>
 						<LeftSidePanel state={state} dispatch={dispatch} />
 						<MusicPlayer state={state} dispatch={dispatch} />

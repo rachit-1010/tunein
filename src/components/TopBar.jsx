@@ -84,7 +84,7 @@ export default function TopBar({ state, dispatch }) {
 				}
 
 				<div className="self-end flex-grow text-right me-8 hidden lg:block">
-					<button className="p-2  whitespace-nowrap rounded-md text-color-secondary leading-none bg-color-secondary" onClick={logout}>
+					<button className="p-2  whitespace-nowrap rounded-md text-color-secondary leading-none bg-color-secondary" onClick={() => {logout(); window.location.reload()}}>
 						<div>Hi, {username}!</div>
 						<div><span className="text-red-400">Logout?</span></div>
 					</button>

@@ -49,6 +49,7 @@ export default function LeftSidePanel({state, dispatch}) {
 				</Link>
 				<div className='LeftPanelBlockItem' onClick={() => {
 					dispatch({type:"toggleShowVideo"})
+					dispatch({type:"setIsMainView", payload:true})
 				}}>
 					<div>
 						{state.showVideo ? <FontAwesomeIcon icon={faVideoSlash} /> : <FontAwesomeIcon icon={faVideo} />}
@@ -90,7 +91,7 @@ export default function LeftSidePanel({state, dispatch}) {
 			<div className='LeftPanelBlock mb-0'>
 				{/* Queues button */}
 				<Link to='/queue'>
-				<div className='LeftPanelBlockItem mb-0' onClick={() => {switchToMainView(); logout();}}>
+				<div className='LeftPanelBlockItem mb-0' onClick={() => {switchToMainView(); logout(); window.location.reload()}}>
 					<div>
 						<FontAwesomeIcon icon={faRightFromBracket} size="2x" />
 					</div>

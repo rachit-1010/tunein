@@ -31,6 +31,9 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 	}
 
 	function onSongClick() {
+		if (songIndex === state.currentSongIndex) {
+			return;
+		}
 		dispatch({type:'setCurrentSongIndex', payload:songIndex})
 		if (state.currentSongIndex === 0) {
 			dispatch({type:'playSong'})
@@ -127,18 +130,13 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 					<div className="relative inline-block addPlBtn">
 						<button className={`lg:hover:bg-slate-700 p-1 border-2 border-slate-700 text-xs ${isFocused?'':'lg:invisible'}`}>+Playlist</button>
 						<div className="dropdown-content">
-							{/* <a href="#">My Playlist</a>
-							<a href="#">Slow Mornings</a>
-							<a href="#">Old</a>
-							<a href="#">Very very very long long name</a> */}
-							{/* get the list of playlists from global state */}
 							{state.playlistList.map((playlist, index) => {
 								if (index !== 0){
 									return (
-										<a href="#" onClick={() => {
+										<div className="text-center p-1 m-1 cursor-pointer hover:bg-gray-600" onClick={() => {
 											addSongToPlaylist(songIndex, index);
-										}}>{playlist.playlistName}</a>
-									)
+										}}>{playlist.playlistName}</div>
+							)
 								}
 							})}
 						</div>

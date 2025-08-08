@@ -20,6 +20,7 @@ export default function ModalCmp({state, dispatch}) {
 	}, [state.showModal]);
 
 
+
 	return (
 		<>
 			{state.showModal &&
