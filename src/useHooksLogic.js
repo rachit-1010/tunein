@@ -19,7 +19,7 @@ const initialState = {
 	YTPlayer: null,
 	YTPlayerState: null,
 	searchQuery: "",
-	backendURL: "https://tunein-update-backend-a6f24b845c75.herokuapp.com/",
+	backendURL: "https://tunein-backend.onrender.com/",
 	// backendURL: "http://127.0.0.1:5000/"
 }
 
