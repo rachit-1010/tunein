@@ -15,7 +15,7 @@ const initialState = {
 	currentSongList: [], // to display in the mainpanel - again more like currentDisplaySongList - not the playing list
 	currentPlayingSection: [], // to decide the nextSong
 	queue: [],
-	playlistList: [],
+	playlistList: [{"songs": []}],
 	YTPlayer: null,
 	YTPlayerState: null,
 	searchQuery: "",
