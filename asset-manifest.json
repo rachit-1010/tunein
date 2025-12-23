@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tunein/static/css/main.c0095a9a.css",
-    "main.js": "/tunein/static/js/main.f0add387.js",
-    "static/js/787.9c2e1bcd.chunk.js": "/tunein/static/js/787.9c2e1bcd.chunk.js",
-    "index.html": "/tunein/index.html",
-    "main.c0095a9a.css.map": "/tunein/static/css/main.c0095a9a.css.map",
-    "main.f0add387.js.map": "/tunein/static/js/main.f0add387.js.map",
-    "787.9c2e1bcd.chunk.js.map": "/tunein/static/js/787.9c2e1bcd.chunk.js.map"
+    "main.css": "/static/css/main.c0095a9a.css",
+    "main.js": "/static/js/main.636aea33.js",
+    "static/js/787.9c2e1bcd.chunk.js": "/static/js/787.9c2e1bcd.chunk.js",
+    "index.html": "/index.html",
+    "main.c0095a9a.css.map": "/static/css/main.c0095a9a.css.map",
+    "main.636aea33.js.map": "/static/js/main.636aea33.js.map",
+    "787.9c2e1bcd.chunk.js.map": "/static/js/787.9c2e1bcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c0095a9a.css",
-    "static/js/main.f0add387.js"
+    "static/js/main.636aea33.js"
   ]
 }
