@@ -19,7 +19,7 @@ const initialState = {
 	YTPlayer: null,
 	YTPlayerState: null,
 	searchQuery: "",
-	backendURL: "http://lc4swkgkgsw0w4s0k4s84ks8.116.203.67.86.sslip.io",
+	backendURL: "https://tunein-backend.rachitshah.dev/",
 	// backendURL: "http://127.0.0.1:5000/"
 }
 
