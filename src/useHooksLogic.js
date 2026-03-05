@@ -1,4 +1,4 @@
-import {useEffect, useReducer} from "react";
+import { useEffect, useReducer } from "react";
 import { useAuth } from './components/AuthContext';
 
 
@@ -19,8 +19,7 @@ const initialState = {
 	YTPlayer: null,
 	YTPlayerState: null,
 	searchQuery: "",
-	backendURL: "https://tunein-backend.rachitshah.dev/",
-	// backendURL: "http://127.0.0.1:5000/"
+	backendURL: "https://tunein-backend.rachitshah.dev/"
 }
 
 const reducer = (state, action) => {
@@ -175,61 +174,29 @@ const reducer = (state, action) => {
 
 const useHooksLogic = () => {
 	const [state, dispatch] = useReducer(reducer, initialState)
-	const { token, setUsername } = useAuth();
-	// dispatch({type: "setToken", payload: token})
+	const { token, authFetch } = useAuth();
 
 	useEffect(() => {
-		console.log("useHooksLogic useEffect", token)
 		if (token !== null) {
-
-		async function getUserDetails () {
-			if (token !== null) {
-				await fetch (`${state.backendURL}/getlogininfo`, {
-					method: "GET",
-					headers: {
-					"Authorization": token
+		Promise.all([
+			authFetch(`${state.backendURL}/getallsongs`)
+				.then(res => res.json())
+				.then(data => {
+					data = JSON.parse(data)
+					dispatch({type: "setAllSongs", payload: data})
+					let currentSongList = []
+					for (let i = 0; i < data.length; i++) {
+						currentSongList.push(i)
 					}
+					dispatch({type: "setCurrentSongList", payload: currentSongList})
+				}),
+			authFetch(`${state.backendURL}/getallplaylists`)
+				.then(res => res.json())
+				.then(data => {
+					data = JSON.parse(data)
+					dispatch({type: "setPlaylistList", payload: data})
 				})
-					.then(res => res.json())
-					.then(data => {
-					console.log(data)
-					setUsername(data)
-					})
-					.catch(err => console.log())
-			}
-		}
-		getUserDetails().then(() => {
-		fetch(`${state.backendURL}/getallsongs`, {
-			method: "GET",
-			headers: {
-				"Authorization": token
-			}
-		})
-			.then(res => res.json())
-			.then(data => {
-				data = JSON.parse(data)
-				dispatch({type: "setAllSongs", payload: data})
-				// set currentSongList to [0,...,data.length-1]
-				let currentSongList = []
-				for (let i = 0; i < data.length; i++) {
-					currentSongList.push(i)
-				}
-				dispatch({type: "setCurrentSongList", payload: currentSongList})
-			})
-		
-		fetch(`${state.backendURL}/getallplaylists`, {
-			method: "GET",
-			headers: {
-				"Authorization": token
-			}
-
-		})
-			.then(res => res.json())
-			.then(data => {
-				data = JSON.parse(data)
-				dispatch({type: "setPlaylistList", payload: data})
-			})
-		})
+		])
 		.then(() => {
 			dispatch({type: "setIsFetchingData", payload: false})
 		})

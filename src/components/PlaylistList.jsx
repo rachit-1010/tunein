@@ -4,18 +4,16 @@ import { useAuth } from "./AuthContext";
 
 export default function PlaylistList({state, dispatch}) {
 
-	const { token } = useAuth();
+	const { authFetch } = useAuth();
 
 	function newPlaylist(e) {
 		e.preventDefault();
 		const newPlaylistName = e.target[0].value;
-		console.log(newPlaylistName, token);
 		e.target[0].value = "";
-		fetch(`${state.backendURL}/createPlaylist`, {
+		authFetch(`${state.backendURL}/createPlaylist`, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
-				"Authorization": token,
 			},
 			body: JSON.stringify({
 				"playlistName": newPlaylistName,

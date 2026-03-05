@@ -2,12 +2,26 @@ import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "./AuthContext";
 
-export default function LoginPage() {
-const { login } = useAuth();
+const BACKEND_URL = "https://tunein-backend.rachitshah.dev";
 
-  const handleLoginSuccess = (response) => {
-    console.log("Google login success:", response.credential);
-	login(response.credential);
+export default function LoginPage() {
+  const { login, loginGuest } = useAuth();
+
+  const handleLoginSuccess = async (response) => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/getlogininfo`, {
+        method: "GET",
+        headers: { "Authorization": response.credential }
+      });
+      const data = await res.json();
+      if (data.accessToken) {
+        login(data.accessToken, data.refreshToken, data.username);
+      } else {
+        console.error("Login failed:", data);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+    }
   };
 
   const handleLoginFailure = (error) => {
@@ -15,8 +29,7 @@ const { login } = useAuth();
   };
 
   const guestLogin = () => {
-	console.log("Guest login");
-	login("guest");
+    loginGuest();
   }
 
   return (

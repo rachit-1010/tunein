@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "./AuthContext";
 
 export default function SearchResults({ state, dispatch }) {
-	const { token } = useAuth();
+	const { authFetch } = useAuth();
 	const [ searchResults, setSearchResults ] = useState([]);
 	const [windowSize, setWindowSize] = useState({
 		width: window.innerWidth,
@@ -57,11 +57,10 @@ export default function SearchResults({ state, dispatch }) {
 			duration: duration,
 			videoId: videoId
 		}
-		fetch(`${state.backendURL}/addSong`, {
+		authFetch(`${state.backendURL}/addSong`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"Authorization": token,
 			},
 			body: JSON.stringify(body)
 		})

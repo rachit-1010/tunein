@@ -9,7 +9,7 @@ import { useAuth } from './AuthContext';
 
 export default function SongItem({ id, name, songIndex, album, duration, selected, state, dispatch}) {
 
-	const { token } = useAuth();
+	const { authFetch } = useAuth();
 	const { page } = useParams();
 	const [isFocused, setIsFocused] = useState(false);
 
@@ -42,10 +42,9 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 	}
 
 	function addSongToPlaylist(songIndex, playlistIndex) {
-		fetch(`${state.backendURL}/addSongToPlaylist`, {
+		authFetch(`${state.backendURL}/addSongToPlaylist`, {
 				method: "POST",
 				headers: {
-					"Authorization": token,
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify({
@@ -71,10 +70,9 @@ export default function SongItem({ id, name, songIndex, album, duration, selecte
 			dispatch({type:'setShowModal', payload:true});
 			return;
 		}
-		fetch(`${state.backendURL}/removeSongFromPlaylist`, {
+		authFetch(`${state.backendURL}/removeSongFromPlaylist`, {
 				method: "POST",
 				headers: {
-					"Authorization": token,
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify({
